@@ -46,7 +46,11 @@ io.on('connection', function connection(ws) {
 
   ws.on('echo', function incoming(message) {
     MESSAGE_COUNT++;
-    console.log('Socket.io echoing message: %s', message);
+    if (message.sendAck === true) {
+      console.log('Socket.io sending message ack: ', message);
+      ws.emit('ack', message);
+    }
+    console.log('Socket.io echoing message: ', message);
     ws.emit('echoed', message);
   });
 });
