@@ -24,6 +24,8 @@
         {"emit": { "channel": "echo", "data": {"key": "{{ $randomString(10) }}"}, "response": { "channel": "echoed", "capture": {"json": "$.key", "as": "rand" } }}},
         {"think": 1},
         {"emit": { "channel": "echo", "data": {"key": "{{ rand }}"}, "response": { "channel": "echoed", "match": {"json": "$.key", "value": "{{ rand }}" } }}},
+        {"think": 1},
+        {"emit": { "channel": "echo", "data": {"key": "{{ rand }}", "sendAck": true}, "response": [{ "channel": "ack", "match": {"json": "$.key", "value": "{{ rand }}" } }, { "channel": "echoed", "match": {"json": "$.key", "value": "{{ rand }}" } }]}},
         {"think": 1}
       ]
     }
